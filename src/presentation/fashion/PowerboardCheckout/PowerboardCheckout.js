@@ -177,8 +177,8 @@ export default {
 
         onMounted(async () => {
             const configuration = await getPowerboardPaymentsConfiguration();
-            const PRODUCTION_POWERBOARD_URL = configuration?.widget_configuration.widget_url ?? 'https://widget.powerboard.commbank.com.au/sdk/latest/widget.umd.js';
-            const SANDBOX_POWERBOARD_URL = configuration?.widget_configuration.widget_test_url ?? 'https://widget.preproduction.powerboard.commbank.com.au/sdk/latest/widget.umd.js';
+            const PRODUCTION_POWERBOARD_URL = configuration?.widget_configuration.config.widget_url ?? 'https://widget.commbank.com.au/sdk/latest/widget.umd.js';
+            const SANDBOX_POWERBOARD_URL = configuration?.widget_configuration.config.widget_test_url ?? 'https://widget.preproduction.powerboard.commbank.com.au/sdk/latest/widget.umd.js';
             const isSandbox = configuration?.sandbox_mode;
             isSandbox === 'Yes' ? await loadPowerboardScript(SANDBOX_POWERBOARD_URL) : await loadPowerboardScript(PRODUCTION_POWERBOARD_URL)
             const { default: PowerboardCommercetoolsWidget } = await import('@power-board-commercetools/powerboard');
