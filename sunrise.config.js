@@ -12,12 +12,12 @@ const config = {
   ct: {
     auth: {
       host: 'https://auth.europe-west1.gcp.commercetools.com',
-      projectKey: 'demo-powerboard',
+      projectKey: 'demo2-powerboard',
       credentials: {
-        clientId: 'BcyTnvSD6evU1JBccdN4-kdD',
-        clientSecret: 'VV6N_4BFcUxWAMYmD5wULMGyeNXuvTm6',
+        clientId: 'a1IITIwIirCGojOsD_StnX_C',
+        clientSecret: '9E7k6_xOQ-wc271BPMB8dlSh5I0AH2w6',
       },
-      scope: 'manage_project:demo-powerboard view_audit_log:demo-powerboard manage_api_clients:demo-powerboard view_api_clients:demo-powerboard'
+      scope: 'manage_orders:demo2-powerboard manage_approval_flows:demo2-powerboard introspect_oauth_tokens:demo2-powerboard manage_connectors:demo2-powerboard manage_audit_log:demo2-powerboard manage_cart_discounts:demo2-powerboard manage_payments:demo2-powerboard manage_customer_groups:demo2-powerboard manage_discount_codes:demo2-powerboard manage_extensions:demo2-powerboard view_sessions:demo2-powerboard manage_business_units:demo2-powerboard manage_my_quotes:demo2-powerboard manage_import_containers:demo2-powerboard manage_my_profile:demo2-powerboard manage_product_selections:demo2-powerboard manage_my_quote_requests:demo2-powerboard manage_my_payments:demo2-powerboard view_api_clients:demo2-powerboard manage_order_edits:demo2-powerboard manage_categories:demo2-powerboard manage_my_shopping_lists:demo2-powerboard manage_attribute_groups:demo2-powerboard manage_connectors_deployments:demo2-powerboard manage_associate_roles:demo2-powerboard create_anonymous_token:demo2-powerboard manage_api_clients:demo2-powerboard manage_my_business_units:demo2-powerboard manage_approval_rules:demo2-powerboard manage_checkout_payment_intents:demo2-powerboard manage_customers:demo2-powerboard manage_project:demo2-powerboard manage_products:demo2-powerboard manage_sessions:demo2-powerboard manage_my_orders:demo2-powerboard'
     },
     api:
         'https://api.europe-west1.gcp.commercetools.com',
