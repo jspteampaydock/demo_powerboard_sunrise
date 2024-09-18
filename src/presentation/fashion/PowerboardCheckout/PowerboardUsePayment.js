@@ -30,10 +30,10 @@ export function usePowerboardPayment() {
         powerboardResponse = JSON.parse(powerboardResponse);
         let chargeId = powerboardResponse.data.id;
         let status = null;
-        if(powerboardResponse.data.status === "inreview"){
-            status =  'powerboard-pending'
-        }else{
-            status  = powerboardResponse.data.status === 'pending' ? 'powerboard-authorize' : 'powerboard-paid';
+        if (powerboardResponse.data.status === "inreview") {
+            status = 'powerboard-pending'
+        } else {
+            status = powerboardResponse.data.status === 'pending' ? 'powerboard-authorize' : 'powerboard-paid';
         }
         let {commerceToolCustomerId, currencyCode, cartId, centAmount, totalPrice, headers} = collectData(cart);
         let paymentType = type;
@@ -262,33 +262,36 @@ export function usePowerboardPayment() {
             actions: [
                 {
                     action: "setCustomField",
-                    name: "makePaymentRequest",
+                    name: "PaymentExtensionRequest",
                     value: JSON.stringify({
-                        orderId: reference,
-                        paymentId: paymentId,
-                        amount: {
-                            currency: currencyCode,
-                            value: centAmount
-                        },
-                        PowerboardTransactionId: paymentSource,
-                        PowerboardPaymentStatus: status,
-                        PowerboardPaymentType: paymentType,
-                        CommerceToolsUserId: commerceToolCustomerId,
-                        SaveCard: saveCard,
-                        VaultToken: vaultToken,
-                        AdditionalInfo: additionalInfo
+                        action: "makePaymentRequest",
+                        request: {
+                            orderId: reference,
+                            paymentId: paymentId,
+                            amount: {
+                                currency: currencyCode,
+                                value: centAmount
+                            },
+                            PowerboardTransactionId: paymentSource,
+                            PowerboardPaymentStatus: status,
+                            PowerboardPaymentType: paymentType,
+                            CommerceToolsUserId: commerceToolCustomerId,
+                            SaveCard: saveCard,
+                            VaultToken: vaultToken,
+                            AdditionalInfo: additionalInfo
+                        }
                     })
                 }
             ]
         };
 
-        response  = await retryUpdatePayment(currentPaymentUrl, headers,  updateData);
-        if(!response){
+        response = await retryUpdatePayment(currentPaymentUrl, headers, updateData);
+        if (!response) {
             return Promise.reject("Invalid Transaction Details");
         }
 
         let payment = await response.json();
-        
+
 
         let powerboardWidgetCardServerErrorBlock = document.getElementById('powerboard-widget-card-server-error');
         let orderPaymentStatus = 'Pending';
@@ -300,7 +303,7 @@ export function usePowerboardPayment() {
                 powerboardWidgetCardServerErrorBlock.innerText = paymentExtensionResponse.message;
                 powerboardWidgetCardServerErrorBlock.classList.remove("hide");
                 return Promise.reject(paymentExtensionResponse.message);
-            }else{
+            } else {
                 orderPaymentStatus = paymentExtensionResponse.orderPaymentStatus;
                 orderStatus = paymentExtensionResponse.orderStatus;
             }
@@ -357,7 +360,7 @@ export function usePowerboardPayment() {
             shippingAddress = cart.shippingAddress;
         }
 
-        if('card' === paymentType){
+        if ('card' === paymentType) {
             const {powerboardConvertAddress} = powerboardMapperDataHelper();
             powerboardStore?.powerboardpaycardWidgetInstance.setBillingInfo(powerboardConvertAddress(billingAddress));
             powerboardStore?.powerboardpaycardWidgetInstance.setShippingInfo(powerboardConvertAddress(shippingAddress));
@@ -391,6 +394,7 @@ export function usePowerboardPayment() {
             charge_id: chargeId
         };
     }
+
     async function redirectToThankYouPage(router) {
         let currentPaymentUrl = `${config.ct.api}/${config.ct.auth.projectKey}/payments/${powerboardStore?.paymentId}`;
         const response = await fetchWithToken(currentPaymentUrl, {
